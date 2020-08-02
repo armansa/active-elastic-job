@@ -137,9 +137,9 @@ module ActiveJob
           }
 
           if queue_name.split('.').last == 'fifo'
-            args.merge(fifo_required_params(serialized_job))
+            args.merge!(fifo_required_params(serialized_job))
           end
-          return args
+          args
         end
 
         def build_message_attributes(serialized_job)
