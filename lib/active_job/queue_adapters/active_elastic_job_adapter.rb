@@ -132,7 +132,7 @@ module ActiveJob
           args = {
             queue_url: queue_url(queue_name),
             message_body: serialized_job,
-            delay_seconds: calculate_delay(timestamp),
+            # delay_seconds: calculate_delay(timestamp), delay seconds doesn't work on fifo queues
             message_attributes: build_message_attributes(serialized_job)
           }
 
