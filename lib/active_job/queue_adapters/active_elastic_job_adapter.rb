@@ -132,12 +132,15 @@ module ActiveJob
           args = {
             queue_url: queue_url(queue_name),
             message_body: serialized_job,
-            # delay_seconds: calculate_delay(timestamp), delay seconds doesn't work on fifo queues
             message_attributes: build_message_attributes(serialized_job)
           }
 
           if queue_name.split('.').last == 'fifo'
             args.merge!(fifo_required_params(serialized_job))
+          else
+            args.merge!({
+              delay_seconds: calculate_delay(timestamp)
+            })
           end
           args
         end
